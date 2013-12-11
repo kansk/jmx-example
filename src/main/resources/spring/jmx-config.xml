@@ -9,7 +9,7 @@
     <context:annotation-config/>
 
     <bean id="person" class="com.github.darogina.jmx.model.Person" factory-method="getInstance"/>
-    
+
     <bean id="exporter" class="org.springframework.jmx.export.MBeanExporter">
         <property name="assembler" ref="assembler"/>
         <property name="namingStrategy" ref="namingStrategy"/>

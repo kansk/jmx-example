@@ -4,9 +4,7 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!--<context:component-scan base-package="com.githubx.modelodel"/>-->
-
-    <context:annotation-config/>
+    <context:component-scan base-package="com.github.darogina.jmx.property"/>
 
     <bean id="person" class="com.github.darogina.jmx.model.Person" factory-method="getInstance"/>
 
@@ -14,6 +12,11 @@
         <property name="assembler" ref="assembler"/>
         <property name="namingStrategy" ref="namingStrategy"/>
         <property name="autodetect" value="true"/>
+        <property name="beans">
+            <map>
+                <entry key="com.github.darogina.jmx.property:name=propertyManager" value-ref="jmxPropertyManager"/>
+            </map>
+        </property>
     </bean>
 
     <bean id="jmxAttributeSource" class="org.springframework.jmx.export.annotation.AnnotationJmxAttributeSource"/>

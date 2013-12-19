@@ -6,6 +6,21 @@
 
     <context:component-scan base-package="com.github.darogina.jmx.property"/>
 
+
+    <bean id="jndiTemplate" class="org.springframework.jndi.JndiTemplate">
+        <property name="environment">
+            <props>
+                <prop key="java.naming.factory.initial">weblogic.jndi.WLInitialContextFactory</prop>
+                <prop key="java.naming.provider.url">t3://127.0.0.1:7001</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="jmxServerRuntime" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName" value="java:comp/env/jmx/runtime"/>
+    </bean>
+
+
     <bean id="person" class="com.github.darogina.jmx.model.Person" factory-method="getInstance"/>
 
     <bean id="exporter" class="org.springframework.jmx.export.MBeanExporter">
@@ -17,6 +32,7 @@
                 <entry key="com.github.darogina.jmx.property:name=propertyManager" value-ref="jmxPropertyManager"/>
             </map>
         </property>
+        <property name="server" ref="jmxServerRuntime"/>
     </bean>
 
     <bean id="jmxAttributeSource" class="org.springframework.jmx.export.annotation.AnnotationJmxAttributeSource"/>
@@ -32,5 +48,13 @@
           class="org.springframework.jmx.export.naming.MetadataNamingStrategy">
         <property name="attributeSource" ref="jmxAttributeSource"/>
     </bean>
+
+    <!--service:jmx:rmi://xxx.xxx.xxx.xxx/jndi/rmi://xxx.xxx.xxx.xxx:YYYY/karaf-tdisit1-->
+    <!--<bean id="clientConnector"-->
+          <!--class="org.springframework.jmx.support.MBeanServerConnectionFactoryBean">-->
+        <!--<property name="serviceUrl" value="service:jmx:t3://localhost:7001/jndi/rmi://localhost:7001"/>-->
+        <!--<property name="connectOnStartup" value="true"/>-->
+    <!--</bean>-->
+
 
 </beans>
